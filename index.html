@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Próximas Folgas</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333333;
+      overflow-x: hidden; /* Remover a rolagem lateral */
+    }
+
+    h2 {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgb(39, 39, 134);
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+      padding: 5px;
+      border: 1px solid #cccccc;
+      border-radius: 3px;
+      width: 100%;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 10px;
+      background-color: #1c8c34;
+      color: #ffffff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1f9c3a;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #cccccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    footer {
+     background-color: #1c8c34;
+      margin-top: 250px;
+      color: #ffffff;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      font-family: "Montserrat", sans-serif;
+      font-style: italic;
+     
+    }
+  </style>
+</head>
+<body>
+  
+  <img src="imagem/ipiranga.jpg" alt="Ipiranga Logo" style="vertical-align: middle; margin: auto; display: flex;">
+  <h2>
+    Folgas 5x1 Ipiranga Agro Industrial
+  </h2>
+  <label for="name">Nome:</label>
+  <input type="text" id="name" name="name" required><br><br>
+
+  <label for="nextHoliday">Data da Próxima Folga:</label>
+  <input type="date" id="nextHoliday" name="nextHoliday" required><br><br>
+
+  <button onclick="generateTable()">Gerar Tabela</button>
+
+  <table id="table"></table>
+
+  <button onclick="printPage()">Imprimir</button>
+
+  <button onclick="refreshPage()">Limpar</button>
+
+  <footer>
+    &copy; Bruno Fabrício Eufrásio
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script>
+    function generateTable() {
+      const name = document.getElementById("name").value;
+      const nextHolidayDate = new Date(document.getElementById("nextHoliday").value);
+      const table = document.getElementById("table");
+      table.innerHTML = "";
+
+      const rows = [];
+
+      const daysOfWeek = [
+        "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"
+      ];
+
+      let currentDate = new Date(nextHolidayDate);
+      currentDate.setDate(currentDate.getDate() + 1); // Pula o dia da folga atual
+
+      const lastDayOfYear = new Date(currentDate.getFullYear(), 11, 31);
+
+      while (currentDate <= lastDayOfYear) {
+        const row = document.createElement("tr");
+        const dayOfWeek = daysOfWeek[currentDate.getDay()];
+        const date = currentDate.toLocaleDateString("pt-BR");
+        const cell1 = document.createElement("td");
+        const cell2 = document.createElement("td");
+        cell1.textContent = dayOfWeek;
+        cell2.textContent = date;
+        row.appendChild(cell1);
+        row.appendChild(cell2);
+        rows.push(row);
+
+        currentDate.setDate(currentDate.getDate() + 6);
+      }
+
+      rows.forEach(row => table.appendChild(row));
+    }
+
+    function printPage() {
+      window.print();
+    }
+
+    function refreshPage() {
+      location.reload();
+    }
+  </script>
+</body>
+</html>
