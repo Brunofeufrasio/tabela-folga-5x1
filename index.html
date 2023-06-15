@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Próximas Folgas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
     body {
@@ -64,7 +65,7 @@
     }
 
     footer {
-     background-color: #1c8c34;
+      background-color: #1c8c34;
       margin-top: 250px;
       color: #ffffff;
       padding: 10px;
@@ -72,12 +73,31 @@
       font-size: 14px;
       font-family: "Montserrat", sans-serif;
       font-style: italic;
-     
+    }
+
+    /* Estilos Responsivos */
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 18px;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+
+    table.responsive-table {
+      overflow-x: auto;
     }
   </style>
 </head>
 <body>
-  
+
   <img src="imagem/ipiranga.jpg" alt="Ipiranga Logo" style="vertical-align: middle; margin: auto; display: flex;">
   <h2>
     Folgas 5x1 Ipiranga Agro Industrial
@@ -90,7 +110,7 @@
 
   <button onclick="generateTable()">Gerar Tabela</button>
 
-  <table id="table"></table>
+  <table id="table" class="responsive-table"></table>
 
   <button onclick="printPage()">Imprimir</button>
 
