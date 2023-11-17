@@ -126,10 +126,10 @@
     Folgas 5x1 Ipiranga AgroIndustrial 
   </h2>
   <p>
-    A tabela é gerar uma ano a diante da folga selecionada
+    A tabela é gerada seis meses após a folga selecionada
   </p>
   <label for="name">Nome:</label>
-  <input type="text" id="name" name="name" required placeholder="Digite seu nome"><br><br>
+  <input type="text" id="name" name="name"  placeholder="Digite seu nome" required><br><br>
 
   <label for="nextHoliday">Data da Próxima Folga:</label>
   <input type="date" id="nextHoliday" name="nextHoliday" required><br><br>
@@ -148,6 +148,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script>
+    
     function generateTable() {
       const name = document.getElementById("name").value;
       const nextHolidayDate = new Date(document.getElementById("nextHoliday").value);
@@ -164,7 +165,7 @@
       currentDate.setDate(currentDate.getDate() + 1); // Pula o dia da folga atual
 
       const sixMonthsLater = new Date(currentDate);
-      sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 12);
+      sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
 
       while (currentDate <= sixMonthsLater) {
         const row = document.createElement("tr");
@@ -178,7 +179,7 @@
         row.appendChild(cell2);
         rows.push(row);
 
-        currentDate.setDate(currentDate.getDate() + 12);
+        currentDate.setDate(currentDate.getDate() + 6);
       }
 
       if (rows.length === 0) {
