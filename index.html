@@ -22,6 +22,19 @@
       align-items: center;
       justify-content: center;
       color: rgb(49, 62, 115);
+      font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    p {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgb(49, 62, 115);
+      font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-style: italic;
     }
   
     label {
@@ -110,8 +123,11 @@
 
   <img src="imagem/ipiranga.jpg" alt="Ipiranga Logo" style="vertical-align: middle; margin: auto; display: flex;">
   <h2>
-    Folgas 5x1 Ipiranga AgroIndustrial
+    Folgas 5x1 Ipiranga AgroIndustrial 
   </h2>
+  <p>
+    A tabela é gerar uma ano a diante da folga selecionada
+  </p>
   <label for="name">Nome:</label>
   <input type="text" id="name" name="name" required placeholder="Digite seu nome"><br><br>
 
@@ -147,9 +163,10 @@
       let currentDate = new Date(nextHolidayDate);
       currentDate.setDate(currentDate.getDate() + 1); // Pula o dia da folga atual
 
-      const lastDayOfYear = new Date(currentDate.getFullYear(), 11, 31);
+      const sixMonthsLater = new Date(currentDate);
+      sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 12);
 
-      while (currentDate <= lastDayOfYear) {
+      while (currentDate <= sixMonthsLater) {
         const row = document.createElement("tr");
         const dayOfWeek = daysOfWeek[currentDate.getDay()];
         const date = currentDate.toLocaleDateString("pt-BR");
@@ -161,10 +178,14 @@
         row.appendChild(cell2);
         rows.push(row);
 
-        currentDate.setDate(currentDate.getDate() + 6);
+        currentDate.setDate(currentDate.getDate() + 12);
       }
 
-      rows.forEach(row => table.appendChild(row));
+      if (rows.length === 0) {
+        alert("Não há folgas nos próximos seis meses a partir da data selecionada.");
+      } else {
+        rows.forEach(row => table.appendChild(row));
+      }
     }
 
     function printPage() {
